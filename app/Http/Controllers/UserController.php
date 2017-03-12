@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return Users::all();
     }
 
     /**
@@ -36,7 +36,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            'nomutilisateur' => 'required',
+            'prenomutilisateur' => 'required',
+            'loginutilisateur' => 'required',
+            'passwordutilisateur' => 'required',
+            'idrole' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->all(), 400);
+        }
+
+        $user = Users::create($request->all());
+        
+        return $user;
     }
 
     /**
@@ -47,7 +63,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Users::find($id);
+
+        if(!$user){
+            return response()->json('L\'utilisateur est introuvable',400);
+        }
+
+        return $user;
     }
 
     /**
@@ -70,7 +92,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Users::find($id);
+
+        if(!$user){
+            return response()->json('L\'utilisateur est introuvable',400);
+        }
+
+        $user ->update($request->all());
+
+        return $user;
     }
 
     /**
@@ -81,6 +111,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Users::find($id);
+
+        if(!$user){
+            return response()->json('L\'utilisateur est introuvable',400);
+        }
+
+        $user ->delete();
+
+        return 'Utilisateur supprimé';
     }
 }
