@@ -100,24 +100,24 @@ class ClientController extends Controller
     {
         $client = Client::find($id);
 
-        $validator = Validator::make($request->all(), [
-            'idclient' => 'required',
-            'nomclient' => 'required',
-            'adresseclient' => 'required',
-            'adresse2client' => 'required',
-            'cpclient' => 'required',
-            'villeclient' => 'required',
-            'telclient' => 'required',
-            'mailclient' => 'required',
-        ]);
+        //$validator = Validator::make($request->all(), [
+        //    'idclient' => 'required',
+        //    'nomclient' => 'required',
+        //    'adresseclient' => 'required',
+        //    'adresse2client' => 'required',
+        //    'cpclient' => 'required',
+        //    'villeclient' => 'required',
+        //    'telclient' => 'required',
+        //    'mailclient' => 'required',
+        //]);
+//
+        //if ($validator->fails()) {
+        //    return response()->json($validator->errors()->all(), 400);
+        //}
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->all(), 400);
-        }
-
-        $customer->update($request->all());
+        $client->update($request->all());
         
-        return $customer;
+        return $client;
     }
 
     /**

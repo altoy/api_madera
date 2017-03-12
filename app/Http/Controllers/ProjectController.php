@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Models\Project;
+Use Validator;
 
 class ProjectController extends Controller
 {
@@ -53,7 +55,7 @@ class ProjectController extends Controller
             return response()->json($validator->errors()->all(), 400);
         }
 
-        $projet = Client::create($request->all());
+        $projet = Projet::create($request->all());
         
         return $projet;
     }
@@ -72,7 +74,7 @@ class ProjectController extends Controller
             return response()->json('Le projet est introuvable',400);
         }
 
-       return $projet
+       return $projet;
 
     }
 
@@ -98,24 +100,24 @@ class ProjectController extends Controller
     {
          $projet = Projet::find($id);
 
-         $validator = Validator::make($request->all(), [
-            'idprojet' => 'required',
-            'nomprojet' => 'required',
-            'referenceprojet' => 'required',
-            'dateprojet' => 'required',
-            'statutprojet' => 'required',
-            'reduction' => 'required',
-            'idclient' => 'required',
-            'iddevis' => 'required',
-            'idmodalite' => 'required',
-            'idutilisateur' => 'required',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //    'idprojet' => 'required',
+        //    'nomprojet' => 'required',
+        //    'referenceprojet' => 'required',
+        //    'dateprojet' => 'required',
+        //    'statutprojet' => 'required',
+        //    'reduction' => 'required',
+        //    'idclient' => 'required',
+        //    'iddevis' => 'required',
+        //    'idmodalite' => 'required',
+        //    'idutilisateur' => 'required',
+        //]);
+//
+        //if ($validator->fails()) {
+        //    return response()->json($validator->errors()->all(), 400);
+        //}
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->all(), 400);
-        }
-
-        $projet = Client::update($request->all());
+        $projet = Projet::update($request->all());
         
         return $projet;
     }

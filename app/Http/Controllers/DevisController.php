@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Models\Devis;
+Use Validator;
 
 class DevisController extends Controller
 {
@@ -92,17 +94,17 @@ class DevisController extends Controller
     {
         $devis = Devis::find($id);
 
-        $validator = Validator::make($request->all(), [
-            'iddevis' => 'required',
-            'referencedevis' => 'required',
-            'datedevis' => 'required',
-            'tarifdevis' => 'required',
-           
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->all(), 400);
-        }
+        //$validator = Validator::make($request->all(), [
+        //    'iddevis' => 'required',
+        //    'referencedevis' => 'required',
+        //    'datedevis' => 'required',
+        //    'tarifdevis' => 'required',
+        //   
+        //]);
+//
+        //if ($validator->fails()) {
+        //    return response()->json($validator->errors()->all(), 400);
+        //}
 
         $devis = Devis::update($request->all());
         
