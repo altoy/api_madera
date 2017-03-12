@@ -36,7 +36,26 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'idprojet' => 'required',
+            'nomprojet' => 'required',
+            'referenceprojet' => 'required',
+            'dateprojet' => 'required',
+            'statutprojet' => 'required',
+            'reduction' => 'required',
+            'idclient' => 'required',
+            'iddevis' => 'required',
+            'idmodalite' => 'required',
+            'idutilisateur' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->all(), 400);
+        }
+
+        $projet = Client::create($request->all());
+        
+        return $projet;
     }
 
     /**
@@ -47,7 +66,14 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $projet = Projet::find($id);
+
+        if(!$projet){
+            return response()->json('Le projet est introuvable',400);
+        }
+
+       return $projet
+
     }
 
     /**
@@ -70,7 +96,28 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $projet = Projet::find($id);
+
+         $validator = Validator::make($request->all(), [
+            'idprojet' => 'required',
+            'nomprojet' => 'required',
+            'referenceprojet' => 'required',
+            'dateprojet' => 'required',
+            'statutprojet' => 'required',
+            'reduction' => 'required',
+            'idclient' => 'required',
+            'iddevis' => 'required',
+            'idmodalite' => 'required',
+            'idutilisateur' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors()->all(), 400);
+        }
+
+        $projet = Client::update($request->all());
+        
+        return $projet;
     }
 
     /**
@@ -81,6 +128,14 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $projet = Projet::find($id);
+
+        if(!$projet){
+            return response()->json('Le projet est introuvable',400);
+        }
+
+        $projet->delete();
+
+        return 'Le projet a était supprimé';
     }
 }

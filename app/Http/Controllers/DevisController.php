@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Models\Client;
-Use Validator;
 
-class ClientController extends Controller
+class DevisController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return Client::all();
+        return Devis::all();
     }
 
     /**
@@ -27,7 +25,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -38,27 +36,21 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-
-        //dd($request);
-         $validator = Validator::make($request->all(), [
-            'idclient' => 'required',
-            'nomclient' => 'required',
-            'adresseclient' => 'required',
-            'adresse2client' => 'required',
-            'cpclient' => 'required',
-            'villeclient' => 'required',
-            'telclient' => 'required',
-            'mailclient' => 'required',
+        $validator = Validator::make($request->all(), [
+            'iddevis' => 'required',
+            'referencedevis' => 'required',
+            'datedevis' => 'required',
+            'tarifdevis' => 'required',
+           
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors()->all(), 400);
         }
 
-        $customer = Client::create($request->all());
+        $devis = Devis::create($request->all());
         
-        return $customer;
-
+        return $devis;
     }
 
     /**
@@ -69,13 +61,13 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $client = Client::find($id);
+        $devis = Devis::find($id);
 
-        if(!$client){
-            return response()->json('Le client est introuvable',400);
+        if(!$devis){
+            return response()->json('Le devis est introuvable',400);
         }
 
-        return $client;
+        return $devis;
     }
 
     /**
@@ -98,26 +90,23 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $client = Client::find($id);
+        $devis = Devis::find($id);
 
         $validator = Validator::make($request->all(), [
-            'idclient' => 'required',
-            'nomclient' => 'required',
-            'adresseclient' => 'required',
-            'adresse2client' => 'required',
-            'cpclient' => 'required',
-            'villeclient' => 'required',
-            'telclient' => 'required',
-            'mailclient' => 'required',
+            'iddevis' => 'required',
+            'referencedevis' => 'required',
+            'datedevis' => 'required',
+            'tarifdevis' => 'required',
+           
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors()->all(), 400);
         }
 
-        $customer->update($request->all());
+        $devis = Devis::update($request->all());
         
-        return $customer;
+        return $devis;
     }
 
     /**
@@ -128,14 +117,14 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        $client = Client::find($id);
+        $devis = Devis::find($id);
 
-        if(!$client){
-            return response()->json('Le client est introuvable',400);
+        if(!$devis){
+            return response()->json('Le devis est introuvable',400);
         }
 
-        $client->delete();
+        $devis->delete();
 
-        return 'Le client a était supprimé';
+        return 'Le devis a était supprimé';
     }
 }

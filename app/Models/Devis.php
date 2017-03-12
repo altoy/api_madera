@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Devis extends Model
 {
-    /**
+        /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'projet';
+    protected $table = 'devis';
 
 
     /**
@@ -20,16 +20,11 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-    	'idprojet',
-    	'nomprojet',
-    	'referenceprojet',
-    	'dateprojet',
-    	'statutprojet',
-    	'reduction',
-    	'idclient',
     	'iddevis',
-    	'idmodalité',
-    	'idutilisateur',
+    	'referencedevis',
+    	'datedevis',
+    	'prixdevis',
+
     ];
 
     /**
